@@ -12,15 +12,16 @@ export function getFillAnim(painter: Painter) {
   let iterationCounter: number;
 
   fillChars = [
-    '•', '$', '@', '§', '£', '∑', '¥', '∆', '©', 'ƒ', 'µ',
+    '•', '$', '@', '§', '£', '∑', '¥', '∆', '©', 'ƒ', 'µ', 'Ɖ',
+    // '∀', '∅', '∃',
   ];
 
   x = 0;
   y = 0;
 
-  r = 0;
-  g = 0;
-  b = 0;
+  r = 150;
+  g = 150;
+  b = 150;
   rDir = true;
   gDir = true;
   bDir = true;
@@ -34,7 +35,15 @@ export function getFillAnim(painter: Painter) {
 
   fillCharIdx = Math.floor(Math.random() * fillChars.length);
   // iterations = Math.round((painter.width * painter.height) / 2);
-  iterations = 512;
+  // iterations = 4096;
+  // iterations = 2048;
+  iterations = 1024;
+  // iterations = 512;
+  // iterations = 256;
+  // iterations = 128;
+  // iterations = 64;
+  // iterations = 1;
+  // iterations = painter.width;
 
   return async () => {
     let drawChar: string, decoratedChar: string;
@@ -70,19 +79,19 @@ export function getFillAnim(painter: Painter) {
       }
       if(bFlip) {
         rDir
-          ? r += Math.round(colorMod)
-          : r -= Math.round(colorMod)
+          ? r += Math.round(colorMod * 1.5)
+          : r -= Math.round(colorMod * 1.5)
         ;
       }
       if(gFlip) {
         bDir
-          ? b += Math.round(colorMod * 2)
-          : b -= Math.round(colorMod * 2)
+          ? b += Math.round(colorMod * 1.25)
+          : b -= Math.round(colorMod * 1.25)
         ;
       }
       gDir
-        ? g += Math.round(colorMod * 1.5)
-        : g -= Math.round(colorMod * 1.5)
+        ? g += Math.round(colorMod * 1)
+        : g -= Math.round(colorMod * 1)
       ;
 
       rFlip = false;
@@ -102,7 +111,8 @@ export function getFillAnim(painter: Painter) {
       drawChar = fillChars[fillCharIdx];
       decoratedChar = chalk.rgb(r, g, b)(drawChar);
       // x += Math.floor(Math.random() * (painter.width / 8));
-      x += Math.floor(Math.random() * (painter.width * 1));
+      x += Math.floor(Math.random() * (painter.width * 0.5));
+      // x += Math.floor(Math.random() * (painter.width * 2));
       // x++;
       if((x < painter.width) && (y < painter.height)) {
         painter.setPoint(x, y, decoratedChar);
